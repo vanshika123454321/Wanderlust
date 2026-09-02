@@ -4,7 +4,7 @@ const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
-const { isLoggedIn } = require("../middleware.js");
+const { isLoggedIn, isOwner } = require("../middleware.js");
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -49,16 +49,15 @@ router.post(
   "/",
   isLoggedIn,
   validateListing,
-  wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    console.log(result);
-    if (result.error) {
-      throw new ExpressError(400, result.error);
-    }
+  wrapAsync(async (req, res) => {
     const newListing = new Listing(req.body.listing);
 
+    // Assign the logged-in user as the owner
+    newListing.owner = req.user._id;
+
     await newListing.save();
-    req.flash("success", "New Listing created");
+
+    req.flash("success", "New Listing Created!");
     res.redirect("/listings");
   }),
 );
@@ -67,6 +66,7 @@ router.post(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
 
@@ -74,7 +74,7 @@ router.get(
 
     if (!listing) {
       req.flash("error", "Listing you requested for does not exist!");
-      return res.redirect("/listings"); 
+      return res.redirect("/listings");
     }
 
     res.render("listings/edit.ejs", { listing });
@@ -85,6 +85,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isOwner,
   validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -113,6 +114,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
