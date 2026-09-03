@@ -1,14 +1,46 @@
-<footer>
-  <div class="f-info">
-    <div class="f-info-socials">
-      <i class="fa-brands fa-square-facebook"></i>
-      <i class="fa-brands fa-square-instagram"></i>
-      <i class="fa-brands fa-square-linkedin"></i>
+<footer class="border-top mt-5">
+  <div class="container py-4">
+    <div class="row align-items-center text-center text-md-start">
+      <!-- Brand -->
+      <div class="col-md-4 mb-3 mb-md-0">
+        <h5 class="mb-1">
+          <i class="fa-regular fa-compass"></i>
+          WanderLust
+        </h5>
+
+        <small class="text-muted"> Discover stays. Create memories. </small>
+      </div>
+
+      <!-- Social Icons -->
+      <div class="col-md-4 mb-3 mb-md-0 text-center">
+        <a href="#" class="text-dark mx-2" aria-label="Facebook">
+          <i class="fa-brands fa-facebook fa-lg"></i>
+        </a>
+
+        <a href="#" class="text-dark mx-2" aria-label="Instagram">
+          <i class="fa-brands fa-instagram fa-lg"></i>
+        </a>
+
+        <a href="#" class="text-dark mx-2" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin fa-lg"></i>
+        </a>
+      </div>
+
+      <!-- Links -->
+      <div class="col-md-4 text-md-end">
+        <a href="/privacy" class="text-decoration-none text-muted me-3">
+          Privacy
+        </a>
+
+        <a href="/terms" class="text-decoration-none text-muted"> Terms </a>
+      </div>
     </div>
-    <div class="f-info-brand">&copy; WanderLust Private Limited</div>
-    <div class="f-info-links">
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
+
+    <hr class="my-3" />
+
+    <div class="text-center text-muted small">
+      &copy; <%= new Date().getFullYear() %> WanderLust Private Limited. All
+      rights reserved.
     </div>
   </div>
 </footer>

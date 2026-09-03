@@ -8,6 +8,9 @@ const router = express.Router({ mergeParams: true });
 const { reviewSchema } = require("../schema.js");
 const Reviews = require("../models/review.js");
 
+let newReview = new Reviews(req.body.review);
+newReview.author = req.user._id;
+
 const vallidateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
   if (error) {
@@ -21,6 +24,7 @@ const vallidateReview = (req, res, next) => {
 //POST REVIEW ROUTE
 router.post(
   "/",
+  isLoggedIn,
   vallidateReview,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -33,11 +37,16 @@ router.post(
 
     let newReview = new Reviews(req.body.review);
 
+    // Assign logged-in user as review author
+    newReview.author = req.user._id;
+
     listing.reviews.push(newReview);
 
     await newReview.save();
     await listing.save();
-    req.flash("success", "New review added !");
+
+    req.flash("success", "New review added!");
+
     res.redirect(`/listings/${listing._id}`);
   }),
 );
@@ -45,6 +54,7 @@ router.post(
 //DELETE REVIEW ROUTE
 router.delete(
   "/:reviewId",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
 
@@ -57,12 +67,26 @@ router.delete(
       throw new ExpressError(400, "Invalid ID");
     }
 
+    const review = await Reviews.findById(reviewId);
+
+    if (!review) {
+      throw new ExpressError(404, "Review not found");
+    }
+
+    // Check review ownership
+    if (review.author && !review.author.equals(req.user._id)) {
+      req.flash("error", "You don't have permission to delete this review!");
+      return res.redirect(`/listings/${id}`);
+    }
+
     await Listing.findByIdAndUpdate(id, {
       $pull: { reviews: reviewId },
     });
 
     await Reviews.findByIdAndDelete(reviewId);
-    req.flash("success", "Review Deleted !");
+
+    req.flash("success", "Review Deleted!");
+
     res.redirect(`/listings/${id}`);
   }),
 );

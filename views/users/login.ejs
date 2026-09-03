@@ -1,30 +1,54 @@
 <% layout("/layouts/boilerplate") %>
-<div class="row mt-3">
-  <h1 class="col-6 offset-3">Login</h1>
-  <div class="col-6 offset-3">
-    <form action="login" method="POST" class="needs-validation novalidate">
-      <div class="mb-3">
-        <lable for="username" class="form-label">Username</lable>
-        <input
-          name="username"
-          id="username"
-          type="text"
-          class="form-control"
-          required
-        />
-      </div>
 
-      <div class="mb-3">
-        <lable for="password" class="form-label">Password</lable>
-        <input
-          name="password"
-          id="password"
-          type="password"
-          class="form-control"
-          required
-        />
+<div class="row justify-content-center mt-5 mb-5">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4 p-md-5">
+        <div class="text-center mb-4">
+          <i class="fa-regular fa-compass fa-2x mb-2"></i>
+          <h2>Welcome Back</h2>
+          <p class="text-muted mb-0">Login to continue exploring WanderLust.</p>
+        </div>
+
+        <form action="/login" method="POST" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label"> Username </label>
+
+            <input
+              name="username"
+              id="username"
+              type="text"
+              class="form-control"
+              placeholder="Enter your username"
+              required
+            />
+
+            <div class="invalid-feedback">Please enter your username.</div>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label"> Password </label>
+
+            <input
+              name="password"
+              id="password"
+              type="password"
+              class="form-control"
+              placeholder="Enter your password"
+              required
+            />
+
+            <div class="invalid-feedback">Please enter your password.</div>
+          </div>
+
+          <button class="btn btn-dark w-100" type="submit">Login</button>
+        </form>
+
+        <p class="text-center text-muted mt-4 mb-0">
+          Don't have an account?
+          <a href="/signup">Sign up</a>
+        </p>
       </div>
-      <button class="btn btn-success">Login</button>
-    </form>
+    </div>
   </div>
 </div>

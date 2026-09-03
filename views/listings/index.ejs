@@ -1,31 +1,61 @@
 <% layout("/layouts/boilerplate") %>
 
-<body>
-  <h3>All Listings</h3>
-  <!-- <form method="GET" action="/listings/new">
-    <button>Create New Listing</button>
-  </form> -->
+<div class="container mt-4">
 
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for(let listing of allListings) { %>
-    <a href="/listings/<%= listing._id %>" class="listing-link">
-      <div class="card col listing-card">
-        <img
-          src="<%= listing.image.url %>"
-          class="card-img-top"
-          alt="listing_image"
-          style="height: 20rem"
-        />
-        <div class="card-img-overlay"></div>
-        <div class="card-body">
-          <p class="card-text">
-            <b><%= listing.title %></b> <br />
-            &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
-          </p>
-        </div>
-      </div>
-    </a>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="mb-1">Explore Listings</h2>
+      <p class="text-muted mb-0">Find your perfect stay for your next adventure.</p>
+    </div>
 
-    <% } %>
+<% if(currUser) { %>
+  <a href="/listings/new" class="btn btn-dark">
+    <i class="fa-solid fa-plus"></i> Add Listing
+  </a>
+<% } %>
+
   </div>
-</body>
+
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-4">
+
+<% for(let listing of allListings) { %>
+
+  <div class="col">
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+
+      <div class="card listing-card h-100">
+
+        <img
+  src="<%= listing.image.url %>"
+  class="card-img-top listing-image"
+  alt="<%= listing.title %>"
+/>
+
+        <div class="card-body px-0">
+
+          <h5 class="card-title mb-1">
+            <%= listing.title %>
+          </h5>
+
+          <p class="text-muted mb-1">
+            <i class="fa-solid fa-location-dot"></i>
+            <%= listing.location %>, <%= listing.country %>
+          </p>
+
+          <p class="card-text mb-0">
+            <strong>&#8377; <%= listing.price.toLocaleString("en-IN") %></strong>
+            <span class="text-muted"> / night</span>
+          </p>
+
+        </div>
+
+      </div>
+
+    </a>
+  </div>
+
+<% } %>
+
+  </div>
+
+</div>
