@@ -1,55 +1,86 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
 
-<!-- Brand -->
-<a class="navbar-brand fw-bold" href="/">
-  <i class="fa-regular fa-compass"></i> WanderLust
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" href="/">
+      <i class="fa-regular fa-compass"></i> WanderLust
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Left Side -->
+      <div class="navbar-nav">
+
+        <a
+  class="nav-link <%= currentPath === '/' ? 'active fw-semibold' : '' %>"
+  href="/"
+>
+  Home
 </a>
 
-<!-- Mobile Toggle -->
-<button
-  class="navbar-toggler"
-  type="button"
-  data-bs-toggle="collapse"
-  data-bs-target="#navbarNavAltMarkup"
-  aria-controls="navbarNavAltMarkup"
-  aria-expanded="false"
-  aria-label="Toggle navigation"
+<a
+  class="nav-link <%= typeof currentPath !== 'undefined' && currentPath === '/' ? 'active fw-semibold' : '' %>"
+  href="/listings"
 >
-  <span class="navbar-toggler-icon"></span>
-</button>
+  Explore
+</a>
 
-<!-- Navigation -->
-<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <% if(currUser) { %>
+  <a
+    class="nav-link <%= currentPath === '/listings/new' ? 'active fw-semibold' : '' %>"
+    href="/listings/new"
+  >
+    <i class="fa-solid fa-plus"></i>
+    Add Listing
+  </a>
+<% } %>
 
-  <div class="navbar-nav">
-    <a class="nav-link" href="/">Home</a>
-    <a class="nav-link" href="/listings">Explore</a>
+      </div>
 
-    <% if(currUser) { %>
-      <a class="nav-link" href="/listings/new">Add Listing</a>
-    <% } %>
-  </div>
+      <!-- Right Side -->
+      <div class="navbar-nav ms-auto">
 
-  <!-- Right Side -->
-  <div class="navbar-nav ms-auto">
+        <% if(!currUser) { %>
 
-    <% if(!currUser) { %>
-      <a class="nav-link" href="/signup">Sign Up</a>
-      <a class="nav-link fw-semibold" href="/login">Login</a>
-    <% } %>
+          <a class="nav-link" href="/signup">
+            Sign Up
+          </a>
 
-    <% if(currUser) { %>
-      <span class="nav-link">
-        Hello, <%= currUser.username %>
-      </span>
-      <a class="nav-link fw-semibold" href="/logout">Log Out</a>
-    <% } %>
+          <a class="nav-link fw-semibold" href="/login">
+            Login
+          </a>
 
-  </div>
+        <% } else { %>
 
-</div>
+          <span class="nav-link">
+            <i class="fa-solid fa-user"></i>
+            Hello, <%= currUser.username %>
+          </span>
 
+          <a class="nav-link fw-semibold" href="/logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Log Out
+          </a>
+
+        <% } %>
+
+      </div>
+
+    </div>
 
   </div>
 </nav>

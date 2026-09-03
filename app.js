@@ -49,10 +49,6 @@ const sessionOptions = {
   },
 };
 
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
-});
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -68,8 +64,19 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
+  res.locals.currentPath = req.path;
   next();
 });
+
+// Home Page
+app.get("/", (req, res) => {
+  res.render("home.ejs");
+});
+
+// Routes
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 // app.get("/demouser", async (req, res) => {
 //   let fakeUser = new User({

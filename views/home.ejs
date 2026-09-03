@@ -1,0 +1,120 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="home-page">
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content text-center">
+
+      <p class="hero-subtitle">
+        DISCOVER • EXPLORE • EXPERIENCE
+      </p>
+
+      <h1>
+        Find your perfect escape.
+      </h1>
+
+      <p class="hero-text">
+        Discover beautiful stays, unique destinations,
+        and unforgettable experiences around the world.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="/listings" class="btn btn-light btn-lg">
+          <i class="fa-solid fa-compass"></i>
+          Explore Listings
+        </a>
+
+        <% if(currUser) { %>
+
+          <a href="/listings/new" class="btn btn-outline-light btn-lg">
+            <i class="fa-solid fa-plus"></i>
+            Add Listing
+          </a>
+
+        <% } %>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Features Section -->
+  <section class="container py-5">
+
+    <div class="text-center mb-5">
+
+      <h2>Why WanderLust?</h2>
+
+      <p class="text-muted">
+        Everything you need for your next adventure.
+      </p>
+
+    </div>
+
+    <div class="row text-center g-4">
+
+      <div class="col-md-4">
+
+        <div class="home-feature">
+
+          <i class="fa-solid fa-earth-americas"></i>
+
+          <h5>Explore Destinations</h5>
+
+          <p class="text-muted">
+            Discover amazing places and unique stays
+            from around the world.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-md-4">
+
+        <div class="home-feature">
+
+          <i class="fa-solid fa-house"></i>
+
+          <h5>Find Your Stay</h5>
+
+          <p class="text-muted">
+            Browse comfortable and memorable places
+            for your next trip.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-md-4">
+
+        <div class="home-feature">
+
+          <i class="fa-solid fa-star"></i>
+
+          <h5>Share Experiences</h5>
+
+          <p class="text-muted">
+            Read reviews and share your own travel
+            experiences with others.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

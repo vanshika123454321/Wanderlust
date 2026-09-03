@@ -7,10 +7,7 @@ const router = express.Router({ mergeParams: true });
 
 const { reviewSchema } = require("../schema.js");
 const Reviews = require("../models/review.js");
-
-let newReview = new Reviews(req.body.review);
-newReview.author = req.user._id;
-
+const { isLoggedIn } = require("../middleware.js");
 const vallidateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
   if (error) {

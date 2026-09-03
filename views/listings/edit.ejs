@@ -141,6 +141,67 @@
               <div class="invalid-feedback">Please enter the location.</div>
             </div>
 
+            <!-- Category -->
+             <div class="mb-3">
+  <label for="category" class="form-label">Category</label>
+
+  <select
+    name="listing[category]"
+    id="category"
+    class="form-select"
+    required
+  >
+    <option value="">Select a category</option>
+
+    <option
+      value="Beach"
+      <%= listing.category === "Beach" ? "selected" : "" %>
+    >
+      Beach
+    </option>
+
+    <option
+      value="Mountain"
+      <%= listing.category === "Mountain" ? "selected" : "" %>
+    >
+      Mountain
+    </option>
+
+    <option
+      value="City"
+      <%= listing.category === "City" ? "selected" : "" %>
+    >
+      City
+    </option>
+
+    <option
+      value="Villa"
+      <%= listing.category === "Villa" ? "selected" : "" %>
+    >
+      Villa
+    </option>
+
+    <option
+      value="Camping"
+      <%= listing.category === "Camping" ? "selected" : "" %>
+    >
+      Camping
+    </option>
+
+    <option
+      value="Countryside"
+      <%= listing.category === "Countryside" ? "selected" : "" %>
+    >
+      Countryside
+    </option>
+
+  </select>
+
+  <div class="invalid-feedback">
+    Please select a category
+  </div>
+</div>
+
             <div class="d-flex gap-2 mt-4">
               <button type="submit" class="btn btn-dark flex-grow-1">
                 <i class="fa-solid fa-check"></i> Save Changes

@@ -33,6 +33,28 @@
               <div class="invalid-feedback">Please enter a title.</div>
             </div>
 
+            <!-- Category -->
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+
+              <select
+                name="listing[category]"
+                id="category"
+                class="form-select"
+                required
+              >
+                <option value="">Select a category</option>
+                <option value="Beach">Beach</option>
+                <option value="Mountain">Mountain</option>
+                <option value="City">City</option>
+                <option value="Villa">Villa</option>
+                <option value="Camping">Camping</option>
+                <option value="Countryside">Countryside</option>
+              </select>
+
+              <div class="invalid-feedback">Please select a category</div>
+            </div>
+
             <!-- Description -->
             <div class="mb-3">
               <label for="description" class="form-label"> Description </label>

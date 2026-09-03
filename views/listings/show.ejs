@@ -25,6 +25,13 @@
         <%= listing.location %>, <%= listing.country %>
       </p>
 
+      <p class="mb-3">
+  <span class="badge bg-secondary">
+    <i class="fa-solid fa-tag"></i>
+    <%= listing.category %>
+  </span>
+</p>
+
       <h5 class="mb-3">
         &#8377; <%= listing.price.toLocaleString("en-IN") %>
         <span class="text-muted fw-normal">/ night</span>
@@ -71,152 +78,183 @@
 
 <div class="col-lg-8 col-md-10">
 
-  <hr />
+<hr />
 
-  <% if(
-    currUser &&
-    review.author &&
-    review.author._id.equals(currUser._id)
-) { %>
+<% if(currUser) { %>
 
-    <h4 class="mb-3">Leave a Review</h4>
+  <h4 class="mb-3">Leave a Review</h4>
 
-    <form
-      action="/listings/<%= listing._id %>/reviews"
-      method="POST"
-      novalidate
-      class="needs-validation"
-    >
+  <form
+    action="/listings/<%= listing._id %>/reviews"
+    method="POST"
+    novalidate
+    class="needs-validation"
+  >
 
-      <div class="mb-3">
+    <div class="mb-3">
+      <label for="rating" class="form-label">Rating</label>
 
-        <label for="rating" class="form-label">
-          Rating
-        </label>
+      <input
+        type="range"
+        min="1"
+        max="5"
+        id="rating"
+        name="review[rating]"
+        class="form-range"
+      />
 
-        <input
-          type="range"
-          min="1"
-          max="5"
-          id="rating"
-          name="review[rating]"
-          class="form-range"
-        />
-
-        <div class="d-flex justify-content-between text-muted small">
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-        </div>
-
+      <div class="d-flex justify-content-between text-muted small">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
       </div>
+    </div>
 
-      <div class="mb-3">
+    <div class="mb-3">
+      <label for="comment" class="form-label">Comment</label>
 
-        <label for="comment" class="form-label">
-          Comment
-        </label>
+      <textarea
+        name="review[comment]"
+        id="comment"
+        rows="4"
+        class="form-control"
+        placeholder="Share your experience..."
+        required
+      ></textarea>
 
-        <textarea
-          name="review[comment]"
-          id="comment"
-          rows="4"
-          class="form-control"
-          placeholder="Share your experience..."
-          required
-        ></textarea>
-
-        <div class="invalid-feedback">
-          Please add some comments for your review.
-        </div>
-
+      <div class="invalid-feedback">
+        Please add some comments for your review.
       </div>
+    </div>
 
-      <button class="btn btn-dark">
-        Submit Review
-      </button>
+    <button class="btn btn-dark">
+      Submit Review
+    </button>
 
-    </form>
+  </form>
 
-  <% } else { %>
+<% } else { %>
 
-    <p class="text-muted">
-      <a href="/login">Login</a> to leave a review.
-    </p>
+  <p class="text-muted">
+    <a href="/login">Login</a> to leave a review.
+  </p>
+
+<% } %>
+
+<hr class="my-4" />
+
+<h4 class="mb-2">Guest Reviews</h4>
+
+<%
+  let totalRating = 0;
+
+  for(let review of listing.reviews) {
+    totalRating += review.rating;
+  }
+
+  let averageRating =
+    listing.reviews.length > 0
+      ? (totalRating / listing.reviews.length).toFixed(1)
+      : 0;
+%>
+
+<% if(listing.reviews.length > 0) { %>
+
+  <p class="text-muted mb-4">
+
+    <strong>⭐ <%= averageRating %> / 5</strong>
+
+    · <%= listing.reviews.length %>
+    <%= listing.reviews.length === 1 ? "review" : "reviews" %>
+
+  </p>
+
+<% } else { %>
+
+  <p class="text-muted mb-4">
+    No ratings yet.
+  </p>
+
+<% } %>
+
+<div class="row">
+
+  <% if(listing.reviews.length === 0) { %>
+
+    <div class="col-12">
+      <p class="text-muted">
+        No reviews yet. Be the first to review this listing!
+      </p>
+    </div>
 
   <% } %>
 
 
-  <hr class="my-4" />
+  <% for(review of listing.reviews) { %>
 
-  <h4 class="mb-4">Guest Reviews</h4>
+  <div class="col-md-6 mb-4">
 
-  <div class="row">
+    <div class="card h-100 shadow-sm">
 
-    <% if(listing.reviews.length === 0) { %>
+      <div class="card-body">
 
-      <div class="col-12">
-        <p class="text-muted">
-          No reviews yet. Be the first to review this listing!
+        <!-- Author -->
+        <h6 class="card-title mb-3">
+          <i class="fa-solid fa-circle-user"></i>
+          <%= review.author ? review.author.username : "Guest" %>
+        </h6>
+
+        <!-- Comment -->
+        <p class="card-text mb-3">
+          "<%= review.comment %>"
         </p>
-      </div>
 
-    <% } %>
+        <!-- Rating -->
+        <p class="mb-0">
 
+          <% for(let i = 1; i <= 5; i++) { %>
 
-    <% for(review of listing.reviews) { %>
-
-      <div class="col-md-6 mb-4">
-
-        <div class="card h-100">
-
-          <div class="card-body">
-
-            <h6 class="card-title">
-    <i class="fa-solid fa-user"></i>
-    <%= review.author ? review.author.username : "Guest" %>
-</h6>
-
-            <p class="card-text">
-              <%= review.comment %>
-            </p>
-
-            <p class="mb-0">
-              <strong>Rating:</strong>
-              <%= review.rating %> / 5 ⭐
-            </p>
-
-          </div>
-
-          <% if(currUser) { %>
-
-            <div class="card-footer bg-transparent border-0">
-
-              <form
-                method="POST"
-                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-              >
-                <button class="btn btn-sm btn-outline-dark">
-                  Delete
-                </button>
-              </form>
-
-            </div>
+            <% if(i <= review.rating) { %>
+              ⭐
+            <% } else { %>
+              ☆
+            <% } %>
 
           <% } %>
 
-        </div>
+        </p>
 
       </div>
 
-    <% } %>
+      <!-- Delete button only for review author -->
+      <% if(
+        currUser &&
+        review.author &&
+        review.author._id.equals(currUser._id)
+      ) { %>
+
+        <div class="card-footer bg-transparent border-0">
+
+          <form
+            method="POST"
+            action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+          >
+
+            <button class="btn btn-sm btn-outline-danger">
+              <i class="fa-solid fa-trash"></i>
+              Delete
+            </button>
+
+          </form>
+
+        </div>
+
+      <% } %>
+
+    </div>
 
   </div>
 
-</div>
-
-  </div>
-
-</div>
+<% } %>

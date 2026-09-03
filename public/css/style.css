@@ -9,9 +9,10 @@ body {
   flex: 1;
 }
 
-/* Navbar */
+/* ================= NAVBAR ================= */
+
 .navbar {
-  height: 5rem;
+  min-height: 5rem;
   background-color: white;
 }
 
@@ -24,11 +25,25 @@ body {
   color: #222222 !important;
 }
 
-/* Footer */
+.nav-link:hover {
+  color: #fe424d !important;
+}
+
+.nav-link.active {
+  color: #fe424d !important;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+  background-color: #ebebeb;
+}
+
 .f-info-links a {
   text-decoration: none;
   color: #222222;
 }
+
 .f-info-links a:hover {
   text-decoration: underline;
 }
@@ -49,23 +64,32 @@ body {
 
 .f-info {
   text-align: center;
-  height: 8rem;
+  min-height: 8rem;
   background-color: #ebebeb;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: space-evenly;
+  align-items: center;
 }
 
-/* Cards */
+/* ================= LISTING CARDS ================= */
+
 .listing-card {
   border: none !important;
   margin-bottom: 2rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
 }
 
 .card-img-top {
   border-radius: 1rem !important;
   width: 100% !important;
+  height: 20rem;
   object-fit: cover !important;
 }
 
@@ -73,44 +97,55 @@ body {
   padding: 0 !important;
 }
 
-.card-text p {
+.card-text {
   font-weight: 400 !important;
 }
 
 .listing-link {
   text-decoration: none;
+  color: inherit;
 }
 
-/* Card effect */
+/* ================= CARD HOVER ================= */
+
 .card-img-overlay {
   opacity: 0;
+  border-radius: 1rem;
+  transition: opacity 0.2s ease;
 }
 
 .card-img-overlay:hover {
-  opacity: 0.2;
+  opacity: 0.15;
   background-color: white;
 }
 
-/* New page */
+/* ================= CREATE LISTING ================= */
 
 .add-btn {
   background-color: #fe424d !important;
   border: none !important;
 }
 
-/* Edit page */
+.add-btn:hover {
+  background-color: #e63946 !important;
+}
+
+/* ================= EDIT LISTING ================= */
+
 .edit-btn {
   background-color: #fe424d !important;
   border: none !important;
 }
 
-/* Show page */
-.show-img {
-  height: 30vh;
+.edit-btn:hover {
+  background-color: #e63946 !important;
 }
 
-.btns {
-  display: flex;
+/* ================= SHOW PAGE ================= */
+
+.show-img {
+  height: 30vh;
+  object-fit: cover;
 }
 
 .show-card {
@@ -118,8 +153,196 @@ body {
   padding-right: 0;
 }
 
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .listing-image {
   height: 20rem;
   width: 100%;
   object-fit: cover;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .navbar {
+    min-height: 4.5rem;
+  }
+
+  .listing-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .card-img-top {
+    height: 18rem;
+  }
+
+  .show-img {
+    height: 35vh;
+  }
+
+  .btns {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 16rem;
+  }
+
+  .show-img {
+    height: 30vh;
+  }
+}
+
+/* Mobile Responsiveness */
+
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    min-height: 5rem;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .listing-image {
+    height: 18rem;
+  }
+
+  .show-img {
+    height: 25vh;
+  }
+
+  .show-card {
+    width: 100%;
+  }
+
+  .btns {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .f-info {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+}
+
+/* =========================
+   HOME PAGE
+========================= */
+
+.home-page {
+  min-height: 100vh;
+}
+
+/* Hero */
+
+.hero-section {
+  position: relative;
+  min-height: 75vh;
+
+  background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  letter-spacing: 4px;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.hero-text {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Features */
+
+.home-feature {
+  padding: 2rem 1.5rem;
+  height: 100%;
+}
+
+.home-feature i {
+  font-size: 2.2rem;
+  color: #fe424d;
+  margin-bottom: 1.2rem;
+}
+
+.home-feature h5 {
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.home-feature p {
+  line-height: 1.6;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 70vh;
+  }
+
+  .hero-content {
+    padding: 1.5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-text {
+    font-size: 1rem;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
 }
